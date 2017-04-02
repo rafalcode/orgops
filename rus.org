@@ -1,15 +1,32 @@
 * Russian language correlations
 Wherein we correlate different aspects of this language to enable easy learning. 
 There are pretty
-** Nouns
+* Nouns
 
 There are 3 general declensions
 1. Masculines and neuters that don't end in a/ya
 2. Feminines
 3. Neuters that end in a/ya
 
-** Verbs
+Of course, the endings are a big difficulty for English speakers, so we're eager to detail any short-cuts
 
+** Plurals
+- Nom and Ac care the same, often ee
+** Prepositional case
+- its about saying "at"
+- It's the same for all genders, i.e. ends in 
+* Gender of nouns
+** Masculine
+- Nom and acc sing. the same, like in the case of plurals
+- unfortunately this is not true for animate masculines, their acc. is the same as their genitive, in both sing and plural. I.e. will end with -a
+** Mnemonics
+- A masculine noun's genitive case is its chance to "to go all feminine"
+#+BEGIN_SRC sh
+ls -altr
+#+END_SRC
+** Feminine
+- Sure, feminine have it rough with their acc being different (-u) but they have it easy with their prepositional case
+** Verbs
 The big deal here is the idea of actions being completed or still ongoing.
 These are perfective and imperfect respectively.
 Despite their similarity to grammars of other laguages, though related, these terms have their own special meaning.

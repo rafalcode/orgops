@@ -1,0 +1,533 @@
+\_\_TOC\_\_
+
+Part One: Linux
+===============
+
+Introduction 1
+--------------
+
+Genomics studies produce vast amounts of usually in the form of very
+large text files. \#\#\# What is a text file and how it differs from
+other files \* Basically a test file is any file that is not binary. \*
+Binary files are only readable by machines and special software. \* In
+Unix, commands are usually binary, while their targets and arguments are
+usually text \* MS Word might look like a text file, but actually it is
+binary. \* In MS Windows and (less often) MAC OSX all files tend to be
+binary, and need a special (often not free) program to open them \* This
+means it can be opened with "general" tools, not a certain specific one.
+
+Linux is particularly suited to working with with such files, and is
+therefore arguably one of the most important tools int he
+bioinformatician's toolkit. The Linux command-line enables one to view,
+search and maniupluate large text files that are difficult or impossible
+to handle with applications like MS Word, or MS Excel, write pipelines
+to perform certain tasks and run bioinformatics software for which no
+web interface is available.
+
+Introduction 2
+--------------
+
+The aim of this course is to provide a basic introduction to unix,
+covering the most used commands ,as well as briefly touching upon a few
+slightly more advanced topics like text processing using awk, writing
+small shell scripts and some biofinromatics tools (seqtk, bioawk,
+SAMtools and tabix).
+
+Linux is used by the vast majority of bioinformaticians in the world.
+The term Linux refes to a large number of (very similar) operating
+systems, many of which are free. In this one day course, we will use
+StABU's, the Bioinformatics Unit's, cluster which actually runs a
+non-free edition of Linux called Red Hat Enterprise Linux. We shall be
+connecting to it remotely, via the PuTTY program hosted on your MS
+Windows machines. This cluster, made up of 11 powerful computers with
+large amounts of memory, has many of the standard Bioinformatics tools
+and software installed.
+
+The real power of Unix/Linux is the command-line. The command-line is an
+incredibly powerful way of controlling what your computer does, and
+users typed submit typed commands in sequence to run differnet pieces of
+software. Users may also create a text file containing many commands and
+this is called a "shell script".
+
+This course is primarily based on Edinburgh Genomics "Linux for
+Genomics" course, which in its turn borrows from the Biolinux (another
+"flavour" of Unix/Linux) introduction tutorial and an Andy Law's (Roslin
+Institute) presentation. Some material is also drawn from Vince
+Buffalo's "Bioinformatics Data Skills" published by O'Reilly in 2015.
+
+Using the command-line
+----------------------
+
+The real power of Unix/Linux systems is the command-line (also called
+the shell or terminal). Many programs and facilities are available
+through graphical options in Linux, but all programs and facilities can
+be accessed by the command-line. Sometimes. it is easier to do things
+through graphical interfaces, but, equally, sometimes it is easier using
+the command-line. This is especially true when you start to work with
+large numbers of files or are considering automating processes.
+
+The program we'll use today, PuTTY is not actually a Linux program, but
+a communications program that networks with remote computers using a
+system called SSH, "Secure Shell". It also generates a screen where your
+typing appears and sends it to the remote computer it connects to. This
+was called a teletype or TTY because it sends typed user input over
+distances usually to a receiving computer. Essentially it was a
+typewriter, but with its own electronics to send the typing down a
+cable, as well repeating (echo'ing) it back to an attached printer or
+(later) screen.
+
+What is a Teletype
+------------------
+
+A teletype that is not only capable of repeating your typing back to
+you, but is also capable of doing something with it, and sending you the
+result almost instantaneously is called a terminal or console, and one
+that is not a separate machine but actually implemented in software by
+the computer itself, is called a terminal emulator. Nevertheless many of
+these terms are used interchangeably.
+
+The idea that your typing will be somehow "acted upon" or "processed" is
+an important one. It means that within the message you type, there are
+instructions. But these instructions also take the form of words. The
+difference will be that we want the instruction's words to be
+interpreted. The convention is that the first words, from the left, of a
+line form the command, while the first words, from the right, are the
+targets of the command, usually filenames and are technically called
+arguments.
+
+A New World
+-----------
+
+The command-line can look forbidding at first. It can be rather like a
+blank page is to novelist, who refer to "the tyranny of the blank page".
+Paradoxical enough the characters that appear to the left of the cursor
+are called the **prompt**, though it seldom gives a hint as to what you
+should do next!
+
+This idea is correct in one sense, nearly all commands are possible by
+simply typing them in as the first word. Some times a special program is
+required to **load** a special piece of software, but once done, you can
+use the command line to launch it. And the majority of these programs
+also expect the next few words to be the input data files.
+
+The command **ls** lists files and subdirectories in a directory
+----------------------------------------------------------------
+
+By default this command will list the filenames of the files in your
+current working directory. At the moment this is probably your home
+directory. In its simplest form, it's one of the few commands that does
+not need any arguments, and, as such, is an exception.
+
+If you add a space followed by a **-l** after the **ls** command, it is
+called an option and it alters the behaviour of the command - it will
+now list the files in your current directory, but with details about
+them such as who owns them, what the size is, and what can be done with
+it. These details are highly abbreviated so that they fit onto one line
+and will be explained later.
+
+**Exercise**
+
+Type the command **ls** Type the command **ls -l** Type the command **ls
+-lh**
+
+What do you see that is different?
+
+We've now met the three types of words that command-lines are made up
+of, can you name them?
+
+The command **man** provides help for a command
+-----------------------------------------------
+
+There are many options you can provide with the **ls** command that
+modify what kind of information is returned to you. By typing **man ls**
+you get access to the manual page for this command. Almost all Linux
+commands have a manual page, and it is woth referring to them to find
+out what options are available. Many jobs can be made easier by using
+the right command options.
+
+Open the help command for **ls** by typing **man ls** and look at some
+of the information provided. Close the man page by typing the letter
+**q**.
+
+If you do not know the name of the command to use for a particular job,
+you can search using **man -k**. For example, **man -k list** gives a
+list of a number of commands that have the word "list" in their
+description. You can scroll through these, or try making the search more
+specific. For example: **man -k "list directory**" will only return four
+commands. You could then look at the man pages for each command to
+decide which was the best for the job at hand.
+
+### Exercise
+
+**Ctrl+F** to advance forward by pages **Ctrl+B** to advance backward in
+pages **q** to exit
+
+Type the command **man cp**. What does this tell you?
+
+Type the command **man mv**. What does this tell you?
+
+Type the command **man rm**. What does this tell you?
+
+What is the difference between **cp** and **mv**?
+
+Type the command **man touch**.
+
+-   Empty of options, what does **touch** do? Do you think that is
+    useful?
+
+Basic Linux/Unix tips for filenames
+-----------------------------------
+
+Certain characters you are used to should not be used in filenames in
+Linux/Unix. Other are much more preferred. For example, preferred
+characters in Unix are letters, numbers, hyphens, underscores and full
+stops.
+
+Unix/Linux/Unix does not deal well with spaces in filenames! Make sure
+your filenames do not contain them. Filenames with spaces in them are a
+common problem when transferring files to Linux/Unix from computers
+running Windows, or Mac operating systems. If you end up with filenames
+with spaces in them, you will need to enclose the entire filename in
+quotation marks so that Linux/Unix understands that the space is part of
+the name.
+
+Alternatively, you can “escape” the space using a backslash. For
+example, if I have a file called my document Linux/Unix will see this as
+two filenames, “my” and “document”. But you could write either of the
+following to make it understand you mean a single file:
+
+-   "my file"
+-   my file
+
+Our general advice is to change the name of such files to remove the
+space. A common practice is to replace the space with an underscore. We
+can use the recently discovered **touch** and **mv** commands for to try
+this out:
+
+-   Do you think there is something fundamental about the space
+    character in command-line? What is it?
+-   What do the quotation marks around the space character say about it
+    in this respect?
+
+### Assume that everything is case specific
+
+Linux/Unix systems consider capital letters different from lower case
+letters. The filename myFile is not the same as the filename Myfile or
+myfile. Please note that there are some common naming conventions in
+place for biological data that you should try to follow.
+
+### special files and subdirectories that start with a **.**
+
+So far you probably think you have a good idea of the file you have in
+your home directory. But you haven't counted on files that with a **.**.
+These are called hidden files, are usually configuration and settings
+files, often with fixed names that refer to the program they affect. In
+truth there are only very light hidden, because **ls** does not show
+them, however the **-a** option can deal with that
+
+-   -   Exercise \*\*
+
+Type
+
+    ls -a
+    ls -al
+
+How lonely are your first files after all?
+
+Changing directories
+--------------------
+
+The command used to change directories is **cd**. If you think of your
+directory structure, (i.e. this set of nested file folders you are in),
+as a tree structure, then the simplest directory change you can do is
+move into a directory directly above or below the one you are in.
+
+To change to a directory one below you are in, just use the cd command
+followed by the subdirectory name:
+
+    cd subdir_name
+
+To change directory to the one above your are in, use the shorthand for
+“the directory above” ..
+
+    cd ..
+
+If you need to change directory to one far away on the system, you could
+explicitly state the full path:
+
+    cd /usr/local/bin
+
+If you wish to return to your home directory at any time, just type cd
+by itself.
+
+    cd
+
+And finally, you can type
+
+    cd –
+
+This returns you to the last directory you were working in before this
+one.
+
+If you get lost and want to confirm where you are in the directory
+structure, you can use the **pwd** command it stands for "print working
+directory". This will return the full path of the directory you are
+currently in.
+
+### Exercise
+
+    cd
+    pwd
+    ls -l
+    cd /shelf/scratch/itugrp
+    pwd
+    ls -l
+    cd /usr/local/bin
+    pwd
+    ls -l
+    cd
+
+-   Compare the output of **pwd** and your prompt and note
+    the differences.
+
+Tab completion for commands and filenames
+-----------------------------------------
+
+Tab completion is an incredibly useful facility for working on the
+command line. One thing tab completion does is complete the filename or
+program name you want, saving huge amounts of typing time.
+
+For example, from your home directory, you could type:
+
+`ls` `-l` `my`
+
+and hit the tab key. If there is only one file with a name starting with
+the letters “my”, the rest of the name will be completed for you.
+However, maybe there is more than one file with that name, so add an
+underscore to see a file is unique to those three characters
+
+`ls` `-l` `my_`
+
+If there is, then the rest of the filename will be completed for you
+with your having to type more. Type **cd /usr/local** and use
+tab-completion for the rest of the command. What happens? Type return to
+ignore the tab completion suggestions.
+
+`cd` `/usr/local` `cd`
+
+This works for all commands. What tab completion does is assume that you
+want to give the first part of your command some arguments, and that if
+you don't start with a **/** or a **.**, that it will be a file or a
+subdirectory in the current directory.
+
+If it does start with a forward slash, then the tab-completion will
+expect a path of directories and will base its completion on directories
+outside the current home directory. If we use tab completion on the
+first word, tab-completion will also work on commands available in the
+system
+
+-   -   Exercise
+
+Try typing a first word starting with *f* using tab completion. See how
+many letters you have to give for tab completion to hel you with
+*fortune*
+
+    fortune
+
+Command history
+---------------
+
+Previous commands you have used are stored in your history, which is a
+special file, one of the so-called "hidden" files, **.bash\_history**,
+it is used byt eh program *history* to store (nearly) all the command
+line typing you do.
+
+You can save a lot of typing by using your command history effectively.
+If you use the up arrow key when you are at the prompt in your terminal,
+you can see previous commands you have run. This is particularly useful
+if you have mistyped something and want to edit the command without
+writing the whole command out again.
+
+In fact, in cases
+
+By default, **history** will return a list of the last 15 commands run.
+You can add a number as a parameter to the command to ask for longer or
+shorter lists. For example, to return the last 30 commands run, you
+would type:
+
+    history -30
+
+To re-run a command listed by the history command, you can just type the
+command number, preceded by an exclamation mark. E.g. to run command
+number 12 returned to you, you can type:
+
+    !12
+
+    Of course you will need to know exactly what the 12th command you launched was, and it is not a good to guess. So ask the command line to just print it out, and not to execute it with
+
+    !12:p
+
+It is also possible to "speed search" by giving **history** a clue by
+typing the first few letters of the command followed by the key
+combination:
+
+    Ctrl-r
+
+(ie. hold down *Ctrl* and tap the *R* key)
+
+The command history will be scanned and the matching commands will be
+displayed on the console. Type **Ctrl-r** repeatedly to cycle through
+the entire list of matching commands.
+
+Making and removing (empty) directories
+---------------------------------------
+
+To make a new directory, use the command **mkdir** (make directory). For
+example:
+
+    mkdir newdir
+
+would create a new directory called newdir. To remove a directory we use
+**rmdir**, however the directory must be empty before it can be remoced
+with this particular command.
+
+-   -   Exercise \*\*
+
+Start in your home directory. Which command will take you into your home
+directory?
+
+Make a new directory called testdir and move into it. Create an empty
+file called **herenow**. Then move back into your home directory. Try to
+use **rmdir** to delete the directory. Find way of deleting it with
+**rmdir**.
+
+    cd
+    mkdir testdir
+    cd testdir
+    touch herenow
+    cd
+    rmdir testdir
+
+Reading text files
+------------------
+
+There are many commands available for reading text files on Linux/Unix.
+These are useful when you want to look at the contents of a file, but do
+not edit them. Among the most common of these commands are *cat*,
+*more*, and *less*. The first name comes from concatenate, and while the
+second was probably a serious name, the third most definitely was a
+playful reference to the second.
+
+**cat** can be used for concatenating files and reading files into other
+programs; it is a very useful facility. However, cat streams the entire
+contents of a file to your terminal and is thus not that useful for
+reading long files as the text streams past too quickly to read.
+
+**more** and **less** are commands that show the contents of a file one
+page at a time. **less** has a few more features **more** (this also
+gives a good insight into **Unix humour**
+
+With both **more** and **less**, you can use the space bar to scroll
+down the page, and typing the letter *q* causes the program to quit –
+returning you to your command line prompt.
+
+Once you are reading a document with more or less, typing a forward
+slash */* will start a prompt at the bottom of the page, and you can
+then type in text that is searched for below the point in the document
+you were at. Typing in a ? also searches for a text string you enter,
+but it searches in the document above the point you were at. Hitting the
+**n** key during a search looks for the next instance of that text in
+the file.
+
+Text editors
+------------
+
+Due to the emphasis the genomics has on symbols represented by letters,
+having a dependable and powerful text editor to quickly see id lines,
+detect (at least, easily seen) errors and jump quickly between sections,
+we have chosen to introduce you to the particularly powerful **vim**
+text editor. We shall include a longer section on it the afternoon, but
+for now we will limit ourselves to its essential commands.
+
+It is also a good place to test regular expressions, a tool which we
+will also look at in the afternoon. It also help in dealin with an
+easily overlooked problem in sharing bioinformatics files: that MS
+Windows, MAC OSX and Unix all treat their line endings differently.
+
+Another advantage is that its special keys, and key combinations, mean
+the same thing in other programs, particularly **more** and **less**
+which we've just seen. Examples are **Ctrl+f**, **Ctrl+b** and
+especially the forward slash */* for all important searching.
+
+`vim` to start `:q` to get out `:w` `<filename>` to save a file
+
+Copying files
+-------------
+
+Removing directories
+--------------------
+
+Piping and outputting to files
+------------------------------
+
+Grep
+----
+
+What permissions mean
+---------------------
+
+Redirection
+-----------
+
+Working with zipped data
+------------------------
+
+Some other useful information
+-----------------------------
+
+Stopping processes
+------------------
+
+Clearing the terminal
+---------------------
+
+Copying and pasting text
+------------------------
+
+Environment Variables
+---------------------
+
+The FASTQ format
+----------------
+
+### FASTQ on the command line
+
+### Using paste to manipulate fastq
+
+### awk for data in columns
+
+### FASTQ to FASTA conversion
+
+Process Management
+------------------
+
+Simple shell scripts
+--------------------
+
+If you finish and you are bored
+-------------------------------
+
+Two: Command-line tools for Genomics
+====================================
+
+Bioawk
+------
+
+seqtk
+-----
+
+samtools
+--------
+
+tabix
+-----
