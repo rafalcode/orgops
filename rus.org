@@ -1,0 +1,16 @@
+* Russian language correlations
+Wherein we correlate different aspects of this language to enable easy learning. 
+There are pretty
+** Nouns
+
+There are 3 general declensions
+1. Masculines and neuters that don't end in a/ya
+2. Feminines
+3. Neuters that end in a/ya
+
+** Verbs
+
+The big deal here is the idea of actions being completed or still ongoing.
+These are perfective and imperfect respectively.
+Despite their similarity to grammars of other laguages, though related, these terms have their own special meaning.
+
